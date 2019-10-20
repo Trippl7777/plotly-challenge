@@ -4,31 +4,31 @@ function buildMetadata(sample) {
   var url = `/metadata/${sample}`;
 
   d3.json(url).then(function(response){
-    // if (error) return console.log(error);
     var data = response;
     var holder = d3.select("#sample-metadata");
-    // .html("") to clear any metadata
+    // .html("") to clear metadata
     holder.html("");
 
     Object.entries(data).forEach(([key, value]) => {
       holder.append("p")
           .text(`${key}:${value}`);
     });
-    // Hint: Inside the loop, you will need to use d3 to append new
-    // tags for each key-value in the metadata.
+
   });
 }
-
+// Hint: Inside the loop, you will need to use d3 to append new
+// tags for each key-value in the metadata.
 
 function buildCharts(sample) {
-
+//not pulling samples or any data. dont know why
   // @TODO: Use `d3.json` to fetch the sample data for the plots
   var url = `/samples/${sample}`;
   d3.json(url).then(function (response){
     var x = response["otu_ids"];
     var y = response["sample_values"];
-    var size = response["sample_values"];
+
     var otus = response["otu_labels"];
+    var size = response["sample_values"];
     // @TODO: Build a Bubble Chart using the sample data
     var trace1 = {
       x: x,
@@ -37,7 +37,7 @@ function buildCharts(sample) {
       marker:{
         size: size,
         color: x,
-        colorscale: "Rainbow", //color scale get from Alex
+        colorscale: "Viridis", //color scale get from Alex
         labels: otus,
         type: 'scatter',
         opacity: 0.5
@@ -67,7 +67,6 @@ function buildCharts(sample) {
 }
 
 function init() {
-  // Grab a reference to the dropdown select element
   var selector = d3.select("#selDataset");
 
   // not working. dont know why -- come back to later
